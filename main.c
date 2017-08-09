@@ -6,11 +6,11 @@ int mode = DEFAULT_MODE;
 
 void usage()
 {
-    printf("usage: [-m:tx,rx] [-p:port] [-i:IP][-f:filename]\n\n");
+    printf("usage: [-m:tx,rx] [-p:port] [-i:IP][-f:file to send]\n\n");
     printf("       -m:rx,tx  Mode Transmitter, Reciever\n");
     printf("       -p:int    Local port\n");
     printf("       -i:IP     Local IP address\n");
-    printf("       -f:file   Send File\n");
+    printf("       -f:file   File to send\n");
     exit(1);
 }
 
@@ -43,15 +43,14 @@ void check_param(int argc, char **argv, m_file *rx_tx_file)
 	      break;
 	    }
 	    case 'f': {
-	      if ((rx_tx_file->file_in = open(&argv[i][3], O_RDONLY)) == -1) {
-		printf("Cannot open file.\n");
-		exit (1);
-	      }
-	      else {
-		strcpy(rx_tx_file->fi_name, &argv[i][3]);
-		printf("Open File : [OK]\n");
-	      }
-	      break ;
+		if ((rx_tx_file->file_in = fopen(&argv[i][3], "rb")) == NULL) {
+		  printf("Cannot open file.\n");
+		  exit (1);
+		}
+		else {
+		  strcpy(rx_tx_file->fi_name, &argv[i][3]);
+		}
+		break ;
 	    }
 	    default:
 	      usage();

@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <ctype.h>
@@ -11,6 +12,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
+#include <sys/sendfile.h>
 
 #define DEFAULT_PORT    5150
 #define TX 1
@@ -25,8 +27,8 @@ extern char rx_tx_ip[IP_SIZE];
 extern int mode;
 
 typedef struct file {
-  int file_out, file_in;
-  char fo_name[FILE_SIZE];
+  FILE *file_out, *file_in;
+  char ou_name[FILE_SIZE];
   char fi_name[FILE_SIZE];
 } m_file;
 
