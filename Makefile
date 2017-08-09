@@ -5,7 +5,7 @@ SRC =  main.c \
 all: comp
 
 comp:
-	gcc $(SRC) -o prog
+	gcc $(SRC) -lcrypto -o prog
 
 clean:
 	@rm -f a.out
