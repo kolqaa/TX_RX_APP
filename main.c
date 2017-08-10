@@ -1,4 +1,4 @@
-#include "header.h"
+#include "sockset.h"
 
 int iPort = DEFAULT_PORT;
 char rx_tx_ip[IP_SIZE];
@@ -10,7 +10,7 @@ void usage()
     printf("       -m:rx,tx  Mode Transmitter, Reciever\n");
     printf("       -p:int    Local port\n");
     printf("       -i:IP     Local IP address\n");
-    printf("       -f:file   File to send\n");
+    printf("       -f:file   File to send(work in rx mode)\n");
     exit(1);
 }
 
@@ -26,11 +26,11 @@ void check_param(int argc, char **argv, m_file *rx_tx_file)
 	    case 'm': {
 	      if (!strcmp("rx", &argv[i][3])) {
 		mode = RX;
-		printf("Work in Receiver mode\n");
+		printf("\n/***MODE: [RECEIVER]***/\n");
 	      }
 	      else if (!strcmp("tx", &argv[i][3])) {
 		mode = TX;
-		printf("Work in Transmitter mode\n");
+		printf("\n/***MODE: [TRANSMITTER]***/\n");
 	      }
 	      break ;
 	    }
@@ -48,7 +48,7 @@ void check_param(int argc, char **argv, m_file *rx_tx_file)
 		  exit (1);
 		}
 		else {
-		  strcpy(rx_tx_file->fi_name, &argv[i][3]);
+		  strcpy(rx_tx_file->in_name, &argv[i][3]);
 		}
 		break ;
 	    }

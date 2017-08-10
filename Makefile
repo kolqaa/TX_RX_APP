@@ -1,18 +1,26 @@
-SRC =  main.c \
+PROG_NAME = prog
+
+SRC =  	main.c \
 	transmitter.c \
-	receiver.c
+	receiver.c \
+	md5.c \
+	trimm.c 
+
+CFLAGS = -Wall -Wextra -Werror -lcrypto
+
+CC = gcc
 
 all: comp
 
 comp:
-	gcc $(SRC) -lcrypto -o prog
+	$(CC) $(SRC) $(CFLAGS) -o $(PROG_NAME)
 
 clean:
 	@rm -f a.out
-	@echo "Object files of library has been deleted (clean rule)."
+	@echo "File was clean."
 
 fclean: clean
 	@rm -f a.out
-	@echo "Library has been deleted (fclean rule)."
+	@echo "File was fclean (fclean rule)."
 
 re: fclean all

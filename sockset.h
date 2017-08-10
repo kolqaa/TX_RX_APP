@@ -1,25 +1,25 @@
-#ifndef HEADER_H
-# define HEADER_H
+#ifndef SOCKSET_H
+# define SOCKSET_H
 
 #include <sys/types.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
+#include <sys/stat.h>
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
-#include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
-#include <sys/sendfile.h>
+#include <openssl/md5.h>
 
-#define DEFAULT_PORT    5150
+#define DEFAULT_PORT 0000
 #define TX 1
 #define RX 0
 #define DEFAULT_MODE 255;
-#define FILE_SIZE 512
+#define FILE_SIZE 128
 #define IP_SIZE 128
+#define BUFSIZE (1025*16)
 
 
 extern int iPort;
@@ -27,11 +27,12 @@ extern char rx_tx_ip[IP_SIZE];
 extern int mode;
 
 typedef struct file {
-  FILE *file_out, *file_in;
   char out_name[FILE_SIZE];
   char in_name[FILE_SIZE];
   char final_path[FILE_SIZE];
   char md5sum[FILE_SIZE];
+  char recv_md5[FILE_SIZE];
+  FILE *file_out, *file_in;
 } m_file;
 
 enum error {
@@ -49,5 +50,8 @@ enum error {
 
 void tx_mode(m_file *rx_tx_file);
 void rx_mode(m_file *rx_tx_file);
+void take_check_sum(m_file *rx_tx_file, FILE *file, int RECEIVED);
+void check_control_sum(m_file *rx_tx_file);
+void trimm_path_name(m_file *rx_tx_file);
 
 #endif
