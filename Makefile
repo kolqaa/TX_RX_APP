@@ -4,9 +4,10 @@ SRC =  	main.c \
 	transmitter.c \
 	receiver.c \
 	md5.c \
-	trimm.c 
+	send_recv_func.c \
+	file_func.c 
 
-CFLAGS = -Wall -Wextra -Werror -lcrypto
+CFLAGS = -lcrypto
 
 CC = gcc
 
@@ -16,11 +17,15 @@ comp:
 	$(CC) $(SRC) $(CFLAGS) -o $(PROG_NAME)
 
 clean:
-	@rm -f a.out
+	@rm -f $(PROG_NAME)
 	@echo "File was clean."
 
 fclean: clean
-	@rm -f a.out
+	@rm -f $(PROG_NAME)
 	@echo "File was fclean (fclean rule)."
 
 re: fclean all
+
+trash:
+	rm -f *.c~
+	rm -f *.h~
